@@ -325,15 +325,19 @@ module Yast
     # Set the support of DHCP (include dhcp.conf in smb.conf)
     # @return if status was changed
     def SetDHCP(new)
-      include_list = SambaConfig.GlobalGetList("include", [])
-      if new && !Builtins.contains(include_list, @dhcp_path)
-        include_list = Convert.convert(
-          Builtins.union(include_list, [@dhcp_path]),
-          :from => "list",
-          :to   => "list <string>"
-        )
-      elsif !new && Builtins.contains(include_list, @dhcp_path)
-        include_list = Builtins.filter(include_list) { |i| i != @dhcp_path }
+      if FileUtils.Exists(@dhcp_path)
+        include_list = SambaConfig.GlobalGetList("include", [])
+        if new && !Builtins.contains(include_list, @dhcp_path)
+          include_list = Convert.convert(
+            Builtins.union(include_list, [@dhcp_path]),
+            :from => "list",
+            :to   => "list <string>"
+          )
+        elsif !new && Builtins.contains(include_list, @dhcp_path)
+          include_list = Builtins.filter(include_list) { |i| i != @dhcp_path }
+        else
+          return false
+        end
       else
         return false
       end

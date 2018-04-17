@@ -25,6 +25,7 @@ YaST::YCP::Import("SambaAD");
 YaST::YCP::Import("SambaWinbind");
 YaST::YCP::Import("String");
 YaST::YCP::Import("YaPI::NETWORK");
+YaST::YCP::Import("FileUtils");
 
 my %TestJoinCache;
 
@@ -234,7 +235,7 @@ sub Test {
     my $content;
     my %glb_overrides;
 
-    $glb_overrides{"include"} = "/etc/samba/dhcp.conf" if (SCR->Read (".sysconfig.network.dhcp.DHCLIENT_MODIFY_SMB_CONF") eq "yes");
+    $glb_overrides{"include"} = "/etc/samba/dhcp.conf" if (SCR->Read (".sysconfig.network.dhcp.DHCLIENT_MODIFY_SMB_CONF") eq "yes" and FileUtils->Exists('/etc/samba/dhcp.conf') eq "yes");
 
     if ($protocol eq "ads") {
 	$glb_overrides{"realm"} = $realm;
@@ -298,7 +299,7 @@ sub Join {
     my $content;
     my %glb_overrides;
     # bnc#520648 (DHCP may know WINS server address)
-    $glb_overrides{"include"} = "/etc/samba/dhcp.conf" if (SCR->Read (".sysconfig.network.dhcp.DHCLIENT_MODIFY_SMB_CONF") eq "yes");
+    $glb_overrides{"include"} = "/etc/samba/dhcp.conf" if (SCR->Read (".sysconfig.network.dhcp.DHCLIENT_MODIFY_SMB_CONF") eq "yes" and FileUtils->Exists('/etc/samba/dhcp.conf') eq "yes");
 
     AdaptDNS ();
 
