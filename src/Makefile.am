@@ -7,6 +7,7 @@ module_DATA = \
   modules/SambaConfig.pm \
   modules/SambaAD.pm \
   modules/SambaNetJoin.pm \
+  modules/SambaNetJoin2.py \
   modules/SambaWinbind.pm
 
 client_DATA = \

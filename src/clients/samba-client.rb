@@ -44,6 +44,7 @@ module Yast
       Yast.import "Samba"
       Yast.import "SambaAD"
       Yast.import "SambaNetJoin"
+      Yast.import "SambaNetJoin2"
       Yast.import "OSRelease"
 
       # The main ()
@@ -263,7 +264,7 @@ module Yast
       end
       relname = OSRelease.ReleaseName
       relver = OSRelease.ReleaseVersion
-      result = SambaNetJoin.Join(
+      result = SambaNetJoin2.Join(
         domain,
         "member",
         Ops.get_string(options, "user"),
