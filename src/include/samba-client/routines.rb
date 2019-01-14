@@ -43,6 +43,7 @@ module Yast
       Yast.import "Samba"
       Yast.import "SambaConfig"
       Yast.import "SambaNetJoin"
+      Yast.import "SambaNetJoin2"
       Yast.import "SambaNmbLookup"
       Yast.import "SambaAD"
       Yast.import "OSRelease"
@@ -260,7 +261,7 @@ module Yast
       relname = OSRelease.ReleaseName
       relver = OSRelease.ReleaseVersion
       # try to join the domain
-      error = SambaNetJoin.Join(
+      error = SambaNetJoin2.Join(
         workgroup,
         "member",
         Ops.get(passwd, "user"),

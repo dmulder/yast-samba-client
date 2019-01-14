@@ -50,6 +50,7 @@ module Yast
       Yast.import "SambaConfig"
       Yast.import "SambaWinbind"
       Yast.import "SambaNetJoin"
+      Yast.import "SambaNetJoin2"
       Yast.import "SambaNmbLookup"
       Yast.import "String"
       Yast.import "Summary"
@@ -810,7 +811,7 @@ module Yast
         if @password_data != {}
           relname = OSRelease.ReleaseName
           relver = OSRelease.ReleaseVersion
-          SambaNetJoin.Join(
+          SambaNetJoin2.Join(
             SambaConfig.GlobalGetStr("workgroup", ""),
             "member",
             Ops.get(

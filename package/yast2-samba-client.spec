@@ -39,6 +39,7 @@ Requires:       yast2 >= 4.0.39
 BuildArchitectures:	noarch
 
 Requires:       yast2-ruby-bindings >= 1.0.0
+Requires:       yast2-python-bindings >= 4.0.8
 
 Summary:	YaST2 - Samba Client Configuration
 
