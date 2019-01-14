@@ -43,6 +43,7 @@ YaST::YCP::Import ("Mode");
 YaST::YCP::Import ("SCR");
 YaST::YCP::Import ("SambaConfig");
 YaST::YCP::Import ("YaPI::NETWORK");
+YaST::YCP::Import ("SambaAD2");
 
 use constant {
     TRUE => 1,
@@ -130,13 +131,16 @@ sub GetADS {
     my $server			= "";
 
     y2milestone ("get ads: workgroup: $workgroup");
-    
+
     if (Mode->config () || !$workgroup) {
 	return "";
     }
 
+    # First look for a server via a RootDSE query via samba
+    $server = SambaAD2->GetDC($workgroup);
+
     # use DNS for finding DC
-    if (FileUtils->Exists ("/usr/bin/dig")) {
+    if ($server eq "" && FileUtils->Exists ("/usr/bin/dig")) {
 
 	# we have to select server from correct site - see bug #238249.
 	# TODO use +short instead?
